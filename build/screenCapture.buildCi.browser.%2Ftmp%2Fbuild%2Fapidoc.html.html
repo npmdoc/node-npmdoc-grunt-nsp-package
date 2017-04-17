@@ -1,0 +1,437 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/nodesecurity/grunt-nsp-package/">grunt-nsp-package (v0.0.5)</a>
+</h1>
+<h4>Grunt plugin for Node Security Project package.json validation</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-nsp-package">module grunt-nsp-package</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-nsp-package.grunt-nsp-package">
+            function <span class="apidocSignatureSpan"></span>grunt-nsp-package
+            <span class="apidocSignatureSpan">(grunt)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-nsp-package.package">
+            function <span class="apidocSignatureSpan">grunt-nsp-package.</span>package
+            <span class="apidocSignatureSpan">(grunt)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-nsp-package.toString">
+            function <span class="apidocSignatureSpan">grunt-nsp-package.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-nsp-package.package">module grunt-nsp-package.package</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-nsp-package.package.package">
+            function <span class="apidocSignatureSpan">grunt-nsp-package.</span>package
+            <span class="apidocSignatureSpan">(grunt)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-nsp-package.toString">module grunt-nsp-package.toString</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-nsp-package.toString.toString">
+            function <span class="apidocSignatureSpan">grunt-nsp-package.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.grunt-nsp-package" id="apidoc.module.grunt-nsp-package">module grunt-nsp-package</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-nsp-package.grunt-nsp-package" id="apidoc.element.grunt-nsp-package.grunt-nsp-package">
+        function <span class="apidocSignatureSpan"></span>grunt-nsp-package
+        <span class="apidocSignatureSpan">(grunt)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">grunt-nsp-package = function (grunt) {
+
+    grunt.initConfig({});
+
+    grunt.loadTasks('tasks');
+
+    grunt.registerTask('default', ['validate-package']);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-nsp-package.package" id="apidoc.element.grunt-nsp-package.package">
+        function <span class="apidocSignatureSpan">grunt-nsp-package.</span>package
+        <span class="apidocSignatureSpan">(grunt)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">package = function (grunt) {
+
+    grunt.registerTask('validate-package', 'Audits package.json against nodesecurity.io API', function () {
+        var done = this.async();
+
+        grunt.log.writeln(file);
+
+        fs.exists(file, function (exists) {
+            if (!exists) {
+                grunt.warn('Can\'t load ' + file);
+                process.exit(0);
+            }
+            pkg = JSON.parse(fs.readFileSync(file));
+            npmconf.load(function (err, config) {
+                config.log = {
+                    verbose: function () {},
+                    info: function () {},
+                    http: function () {},
+                    silly: function () {},
+                    error: function () {},
+                    warn: function () {},
+                };
+                registry = new RegClient(config);
+                checkPackage(pkg, undefined, function (result) {
+                    prettyOutput(result, done);
+                });
+            });
+        });
+
+    });
+
+    var parents = {};
+
+    function resolveParents(module, current) {
+        current = current || [];
+        var parent = parents[module] &amp;&amp; parents[module].length ? parents[module][0] : undefined;
+        if (parent &amp;&amp; parent !== pkg.name &amp;&amp; current.indexOf(parent) === -1) {
+            current.unshift(parent);
+            return resolveParents(parent, current);
+        }
+        return current;
+    }
+
+    function checkPackage(pkginfo, results, callback) {
+        results = results || [];
+
+        if (pkginfo.dependencies) {
+            async.forEach(Object.keys(pkginfo.dependencies), function (module, cb) {
+
+                parents[module] = parents[module] || [];
+                if (parents[module].indexOf(pkginfo.name) === -1) {
+                    parents[module].push(pkginfo.name);
+                }
+
+                registry.get(module, pkginfo.dependencies[module], function (er, data, raw, res) {
+                    if (data &amp;&amp; data.versions) {
+                        var ver = semver.maxSatisfying(Object.keys(data.versions), pkginfo.dependencies[module]);
+                        validateModule(module, ver, function (result) {
+                            if (result) {
+                                var d = {
+                                    dependencyOf: resolveParents(module),
+                                    module: module,
+                                    version: ver,
+                                    advisory: result[0]
+                                };
+                                results.push(d);
+                            }
+                            if (data &amp;&amp; data.versions &amp;&amp; data.versions[ver] &amp;&amp; data.versions[ver].dependencies) {
+                                checkPackage(data.versions[ver], results, function () {
+                                    cb();
+                                });
+                            } else {
+                                cb();
+                            }
+                        });
+                    } else {
+                        cb();
+                    }
+                });
+            }, function (err) {
+                callback(results);
+            });
+        }
+    }
+
+    function validateModule(module, version, cb) {
+        var url = 'https://nodesecurity.io/validate/' + module + '/' + version;
+        request({
+            url: url,
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json'
+            },
+            json: true
+        }, function (err, response, body) {
+            if (body &amp;&amp; body.length &gt; 0) {
+                return cb(body);
+            }
+            cb();
+        });
+    }
+
+    function addResultRow(h, module) {
+        h.push([
+            module.module,
+            module.version,
+            module.advisory.patched_versions,
+            module.dependencyOf.join(' &gt; '),
+            module.advisory.short_url || 'See website'
+        ]);
+    }
+
+    function prettyOutputResults(result, h, callback) {
+        var totalResults = result.length + 1;
+        result.forEach(function (m ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-nsp-package.toString" id="apidoc.element.grunt-nsp-package.toString">
+        function <span class="apidocSignatureSpan">grunt-nsp-package.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return text;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.grunt-nsp-package.package" id="apidoc.module.grunt-nsp-package.package">module grunt-nsp-package.package</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-nsp-package.package.package" id="apidoc.element.grunt-nsp-package.package.package">
+        function <span class="apidocSignatureSpan">grunt-nsp-package.</span>package
+        <span class="apidocSignatureSpan">(grunt)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">package = function (grunt) {
+
+    grunt.registerTask('validate-package', 'Audits package.json against nodesecurity.io API', function () {
+        var done = this.async();
+
+        grunt.log.writeln(file);
+
+        fs.exists(file, function (exists) {
+            if (!exists) {
+                grunt.warn('Can\'t load ' + file);
+                process.exit(0);
+            }
+            pkg = JSON.parse(fs.readFileSync(file));
+            npmconf.load(function (err, config) {
+                config.log = {
+                    verbose: function () {},
+                    info: function () {},
+                    http: function () {},
+                    silly: function () {},
+                    error: function () {},
+                    warn: function () {},
+                };
+                registry = new RegClient(config);
+                checkPackage(pkg, undefined, function (result) {
+                    prettyOutput(result, done);
+                });
+            });
+        });
+
+    });
+
+    var parents = {};
+
+    function resolveParents(module, current) {
+        current = current || [];
+        var parent = parents[module] &amp;&amp; parents[module].length ? parents[module][0] : undefined;
+        if (parent &amp;&amp; parent !== pkg.name &amp;&amp; current.indexOf(parent) === -1) {
+            current.unshift(parent);
+            return resolveParents(parent, current);
+        }
+        return current;
+    }
+
+    function checkPackage(pkginfo, results, callback) {
+        results = results || [];
+
+        if (pkginfo.dependencies) {
+            async.forEach(Object.keys(pkginfo.dependencies), function (module, cb) {
+
+                parents[module] = parents[module] || [];
+                if (parents[module].indexOf(pkginfo.name) === -1) {
+                    parents[module].push(pkginfo.name);
+                }
+
+                registry.get(module, pkginfo.dependencies[module], function (er, data, raw, res) {
+                    if (data &amp;&amp; data.versions) {
+                        var ver = semver.maxSatisfying(Object.keys(data.versions), pkginfo.dependencies[module]);
+                        validateModule(module, ver, function (result) {
+                            if (result) {
+                                var d = {
+                                    dependencyOf: resolveParents(module),
+                                    module: module,
+                                    version: ver,
+                                    advisory: result[0]
+                                };
+                                results.push(d);
+                            }
+                            if (data &amp;&amp; data.versions &amp;&amp; data.versions[ver] &amp;&amp; data.versions[ver].dependencies) {
+                                checkPackage(data.versions[ver], results, function () {
+                                    cb();
+                                });
+                            } else {
+                                cb();
+                            }
+                        });
+                    } else {
+                        cb();
+                    }
+                });
+            }, function (err) {
+                callback(results);
+            });
+        }
+    }
+
+    function validateModule(module, version, cb) {
+        var url = 'https://nodesecurity.io/validate/' + module + '/' + version;
+        request({
+            url: url,
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json'
+            },
+            json: true
+        }, function (err, response, body) {
+            if (body &amp;&amp; body.length &gt; 0) {
+                return cb(body);
+            }
+            cb();
+        });
+    }
+
+    function addResultRow(h, module) {
+        h.push([
+            module.module,
+            module.version,
+            module.advisory.patched_versions,
+            module.dependencyOf.join(' &gt; '),
+            module.advisory.short_url || 'See website'
+        ]);
+    }
+
+    function prettyOutputResults(result, h, callback) {
+        var totalResults = result.length + 1;
+        result.forEach(function (m ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.grunt-nsp-package.toString" id="apidoc.module.grunt-nsp-package.toString">module grunt-nsp-package.toString</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.grunt-nsp-package.toString.toString" id="apidoc.element.grunt-nsp-package.toString.toString">
+        function <span class="apidocSignatureSpan">grunt-nsp-package.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
