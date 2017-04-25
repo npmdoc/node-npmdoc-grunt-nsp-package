@@ -80,7 +80,7 @@
 <tspan x="10" y="1242">  │ ├── graceful-fs@2.0.3 </tspan>
 <tspan x="10" y="1258">  │ ├── mkdirp@0.3.5 </tspan>
 <tspan x="10" y="1274">  │ ├─┬ npmlog@4.0.2 </tspan>
-<tspan x="10" y="1290">  │ │ ├─┬ are-we-there-yet@1.1.2 </tspan>
+<tspan x="10" y="1290">  │ │ ├─┬ are-we-there-yet@1.1.4 </tspan>
 <tspan x="10" y="1306">  │ │ │ ├── delegates@1.0.0 </tspan>
 <tspan x="10" y="1322">  │ │ │ └─┬ readable-stream@2.2.9 </tspan>
 <tspan x="10" y="1338">  │ │ │   ├── buffer-shims@1.0.0 </tspan>
@@ -90,7 +90,7 @@
 <tspan x="10" y="1402">  │ │ │   ├── string_decoder@1.0.0 </tspan>
 <tspan x="10" y="1418">  │ │ │   └── util-deprecate@1.0.2 </tspan>
 <tspan x="10" y="1434">  │ │ ├── console-control-strings@1.1.0 </tspan>
-<tspan x="10" y="1450">  │ │ ├─┬ gauge@2.7.3 </tspan>
+<tspan x="10" y="1450">  │ │ ├─┬ gauge@2.7.4 </tspan>
 <tspan x="10" y="1466">  │ │ │ ├── aproba@1.1.1 </tspan>
 <tspan x="10" y="1482">  │ │ │ ├── has-unicode@2.0.1 </tspan>
 <tspan x="10" y="1498">  │ │ │ ├── object-assign@4.1.1 </tspan>
