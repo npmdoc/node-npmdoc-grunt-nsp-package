@@ -1,4 +1,7 @@
-# api documentation for  [grunt-nsp-package (v0.0.5)](https://github.com/nodesecurity/grunt-nsp-package/)  [![npm package](https://img.shields.io/npm/v/npmdoc-grunt-nsp-package.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-grunt-nsp-package) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-grunt-nsp-package.svg)](https://travis-ci.org/npmdoc/node-npmdoc-grunt-nsp-package)
+# npmdoc-grunt-nsp-package
+
+#### basic api documentation for  [grunt-nsp-package (v0.0.5)](https://github.com/nodesecurity/grunt-nsp-package/)  [![npm package](https://img.shields.io/npm/v/npmdoc-grunt-nsp-package.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-grunt-nsp-package) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-grunt-nsp-package.svg)](https://travis-ci.org/npmdoc/node-npmdoc-grunt-nsp-package)
+
 #### Grunt plugin for Node Security Project package.json validation
 
 [![NPM](https://nodei.co/npm/grunt-nsp-package.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/grunt-nsp-package)
@@ -73,7 +76,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 0"
     },
-    "version": "0.0.5"
+    "version": "0.0.5",
+    "bin": {}
 }
 ```
 
